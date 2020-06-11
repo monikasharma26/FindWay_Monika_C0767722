@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wTQ-8l-l9v">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fVg-Jb-URv">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -8,61 +8,83 @@
     </dependencies>
     <scenes>
         <!--Find My Way-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="MC9-bb-z1o">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FindWay_Monika_C0767722" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController storyboardIdentifier="MapViewController" id="fpV-3k-Ayf" customClass="MapViewController" customModule="FindWay_Monika_C0767722" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZaQ-Nf-vqc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="U06-8F-Bfh">
-                                <rect key="frame" x="0.0" y="83" width="414" height="813"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Yd-a3b">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <connections>
+                                    <outlet property="delegate" destination="fpV-3k-Ayf" id="uIb-qu-dfj"/>
+                                </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ei-2k-H8B">
-                                <rect key="frame" x="330" y="812" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wrf-ue-CVn">
+                                <rect key="frame" x="334" y="816" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="rZx-13-9FV"/>
-                                    <constraint firstAttribute="height" constant="50" id="tbD-iH-7oF"/>
+                                    <constraint firstAttribute="width" constant="50" id="Pkk-1b-LT8"/>
+                                    <constraint firstAttribute="height" constant="50" id="zxb-dL-LYS"/>
                                 </constraints>
                                 <state key="normal" image="location"/>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w5B-J8-I66">
+                                <rect key="frame" x="117.5" y="108" width="179" height="32"/>
+                                <segments>
+                                    <segment title="Automobile"/>
+                                    <segment title="Walking"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </segmentedControl>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Fk3-Fo-MWo">
+                                <rect key="frame" x="20" y="825" width="94" height="32"/>
+                                <color key="backgroundColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="bottom" secondItem="U06-8F-Bfh" secondAttribute="bottom" constant="30" id="5rh-s6-hCY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="U06-8F-Bfh" secondAttribute="bottom" constant="-34" id="CkE-I8-LQq"/>
-                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="trailing" secondItem="U06-8F-Bfh" secondAttribute="trailing" constant="30" id="gfh-BH-IQ8"/>
-                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jFW-jo-Um5"/>
-                            <constraint firstItem="U06-8F-Bfh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jhS-1l-vgS"/>
-                            <constraint firstItem="U06-8F-Bfh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="xX8-cr-YP0"/>
-                            <constraint firstItem="U06-8F-Bfh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="83" id="y8T-Um-wEH"/>
+                            <constraint firstItem="PCy-Ur-gp7" firstAttribute="trailing" secondItem="gfm-Yd-a3b" secondAttribute="trailing" id="2o6-WL-C0V"/>
+                            <constraint firstAttribute="bottom" secondItem="Wrf-ue-CVn" secondAttribute="bottom" constant="30" id="3Ye-yc-wA0"/>
+                            <constraint firstItem="gfm-Yd-a3b" firstAttribute="top" secondItem="PCy-Ur-gp7" secondAttribute="top" id="99i-KA-FcX"/>
+                            <constraint firstItem="PCy-Ur-gp7" firstAttribute="trailing" secondItem="Wrf-ue-CVn" secondAttribute="trailing" constant="30" id="Kyi-Gc-Occ"/>
+                            <constraint firstItem="w5B-J8-I66" firstAttribute="top" secondItem="PCy-Ur-gp7" secondAttribute="top" constant="20" id="TxX-MZ-fn5"/>
+                            <constraint firstItem="Fk3-Fo-MWo" firstAttribute="centerY" secondItem="Wrf-ue-CVn" secondAttribute="centerY" id="Vwh-RJ-Kay"/>
+                            <constraint firstItem="gfm-Yd-a3b" firstAttribute="leading" secondItem="PCy-Ur-gp7" secondAttribute="leading" id="b3D-GT-qSJ"/>
+                            <constraint firstAttribute="bottom" secondItem="gfm-Yd-a3b" secondAttribute="bottom" id="hjh-hb-9LO"/>
+                            <constraint firstItem="Fk3-Fo-MWo" firstAttribute="leading" secondItem="PCy-Ur-gp7" secondAttribute="leading" constant="20" id="jib-Xp-fc6"/>
+                            <constraint firstItem="w5B-J8-I66" firstAttribute="centerX" secondItem="PCy-Ur-gp7" secondAttribute="centerX" id="riK-Ru-hV3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="PCy-Ur-gp7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Find My Way" id="OXh-5H-RTf"/>
+                    <navigationItem key="navigationItem" title="Find My Way" id="aH2-uq-nzf"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lNO-u4-A1N" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="116.51785714285714"/>
+            <point key="canvasLocation" x="973.91304347826099" y="114.50892857142857"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="h6R-yV-pzF">
+        <scene sceneID="nA3-jI-k2l">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wTQ-8l-l9v" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fVg-Jb-URv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RJb-FR-uzE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LE4-M8-nXi">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Heu-l8-Mav"/>
+                        <segue destination="fpV-3k-Ayf" kind="relationship" relationship="rootViewController" id="5K7-Pm-4WU"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cd6-cP-cdq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aU-Sr-g84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
+            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
         </scene>
     </scenes>
     <resources>
