@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Find My Way-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FindWay_Monika_C0767722" customModuleProvider="target" sceneMemberID="viewController">
@@ -15,15 +15,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="U06-8F-Bfh">
-                                <rect key="frame" x="44" y="224" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="U06-8F-Bfh">
+                                <rect key="frame" x="0.0" y="83" width="414" height="813"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ei-2k-H8B">
+                                <rect key="frame" x="330" y="812" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="rZx-13-9FV"/>
+                                    <constraint firstAttribute="height" constant="50" id="tbD-iH-7oF"/>
+                                </constraints>
+                                <state key="normal" image="location"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="bottom" secondItem="U06-8F-Bfh" secondAttribute="bottom" constant="30" id="5rh-s6-hCY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="U06-8F-Bfh" secondAttribute="bottom" constant="-34" id="CkE-I8-LQq"/>
+                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="trailing" secondItem="U06-8F-Bfh" secondAttribute="trailing" constant="30" id="gfh-BH-IQ8"/>
+                            <constraint firstItem="7Ei-2k-H8B" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jFW-jo-Um5"/>
+                            <constraint firstItem="U06-8F-Bfh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jhS-1l-vgS"/>
+                            <constraint firstItem="U06-8F-Bfh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="xX8-cr-YP0"/>
+                            <constraint firstItem="U06-8F-Bfh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="83" id="y8T-Um-wEH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OXh-5H-RTf"/>
+                    <navigationItem key="navigationItem" title="Find My Way" id="OXh-5H-RTf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,4 +65,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="location" width="67" height="67"/>
+    </resources>
 </document>
