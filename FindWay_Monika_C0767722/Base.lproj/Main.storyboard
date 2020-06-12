@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Yd-a3b">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" showsUserLocation="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Yd-a3b">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <connections>
                                     <outlet property="delegate" destination="fpV-3k-Ayf" id="uIb-qu-dfj"/>
@@ -28,6 +28,9 @@
                                     <constraint firstAttribute="height" constant="50" id="zxb-dL-LYS"/>
                                 </constraints>
                                 <state key="normal" image="location"/>
+                                <connections>
+                                    <action selector="locationBtn:" destination="fpV-3k-Ayf" eventType="touchUpInside" id="fqv-X4-CFz"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w5B-J8-I66">
                                 <rect key="frame" x="117.5" y="108" width="179" height="32"/>
@@ -36,11 +39,17 @@
                                     <segment title="Walking"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="trasnportSegment:" destination="fpV-3k-Ayf" eventType="valueChanged" id="5uR-dg-6nA"/>
+                                </connections>
                             </segmentedControl>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Fk3-Fo-MWo">
                                 <rect key="frame" x="20" y="825" width="94" height="32"/>
                                 <color key="backgroundColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="zoomBtn:" destination="fpV-3k-Ayf" eventType="valueChanged" id="ruF-JO-u3w"/>
+                                </connections>
                             </stepper>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -61,7 +70,6 @@
                     <navigationItem key="navigationItem" title="Find My Way" id="aH2-uq-nzf"/>
                     <connections>
                         <outlet property="mapView" destination="gfm-Yd-a3b" id="k9L-ST-2B1"/>
-                        <outlet property="mapview" destination="gfm-Yd-a3b" id="mSI-2b-7Rc"/>
                         <outlet property="zoom" destination="Fk3-Fo-MWo" id="F23-kU-oF2"/>
                     </connections>
                 </viewController>
