@@ -10,7 +10,7 @@
         <!--Find My Way-->
         <scene sceneID="MC9-bb-z1o">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="fpV-3k-Ayf" customClass="MapViewController" customModule="FindWay_Monika_C0767722" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="fpV-3k-Ayf" customClass="FindMyWayController" customModule="FindWay_Monika_C0767722" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZaQ-Nf-vqc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -59,6 +59,11 @@
                         <viewLayoutGuide key="safeArea" id="PCy-Ur-gp7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Find My Way" id="aH2-uq-nzf"/>
+                    <connections>
+                        <outlet property="mapView" destination="gfm-Yd-a3b" id="k9L-ST-2B1"/>
+                        <outlet property="mapview" destination="gfm-Yd-a3b" id="mSI-2b-7Rc"/>
+                        <outlet property="zoom" destination="Fk3-Fo-MWo" id="F23-kU-oF2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lNO-u4-A1N" sceneMemberID="firstResponder"/>
             </objects>

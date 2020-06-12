@@ -9,23 +9,23 @@
 /* Begin PBXBuildFile section */
 		CE13D4B324904872007D2A5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13D4B224904872007D2A5D /* AppDelegate.swift */; };
 		CE13D4B524904872007D2A5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13D4B424904872007D2A5D /* SceneDelegate.swift */; };
-		CE13D4B724904872007D2A5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13D4B624904872007D2A5D /* ViewController.swift */; };
 		CE13D4BA24904872007D2A5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE13D4B824904872007D2A5D /* Main.storyboard */; };
 		CE13D4BD24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE13D4BB24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodeld */; };
 		CE13D4BF24904874007D2A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE13D4BE24904874007D2A5D /* Assets.xcassets */; };
 		CE13D4C224904874007D2A5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE13D4C024904874007D2A5D /* LaunchScreen.storyboard */; };
+		CE7A22D7249339720038204D /* FindMyWayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A22D6249339720038204D /* FindMyWayController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE13D4AF24904872007D2A5D /* FindWay_Monika_C0767722.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindWay_Monika_C0767722.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE13D4B224904872007D2A5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE13D4B424904872007D2A5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE13D4B624904872007D2A5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE13D4B924904872007D2A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE13D4BC24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FindWay_Monika_C0767722.xcdatamodel; sourceTree = "<group>"; };
 		CE13D4BE24904874007D2A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE13D4C124904874007D2A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE13D4C324904874007D2A5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE7A22D6249339720038204D /* FindMyWayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyWayController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +60,12 @@
 			children = (
 				CE13D4B224904872007D2A5D /* AppDelegate.swift */,
 				CE13D4B424904872007D2A5D /* SceneDelegate.swift */,
-				CE13D4B624904872007D2A5D /* ViewController.swift */,
 				CE13D4B824904872007D2A5D /* Main.storyboard */,
 				CE13D4BE24904874007D2A5D /* Assets.xcassets */,
 				CE13D4C024904874007D2A5D /* LaunchScreen.storyboard */,
 				CE13D4C324904874007D2A5D /* Info.plist */,
 				CE13D4BB24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodeld */,
+				CE7A22D6249339720038204D /* FindMyWayController.swift */,
 			);
 			path = FindWay_Monika_C0767722;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE13D4B724904872007D2A5D /* ViewController.swift in Sources */,
+				CE7A22D7249339720038204D /* FindMyWayController.swift in Sources */,
 				CE13D4BD24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodeld in Sources */,
 				CE13D4B324904872007D2A5D /* AppDelegate.swift in Sources */,
 				CE13D4B524904872007D2A5D /* SceneDelegate.swift in Sources */,
