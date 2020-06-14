@@ -52,10 +52,10 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
          createRoute()
     }
     
+    //Mark: Route Create
     func createRoute() {
         if mapView.overlays.count == 0 {
-             guard let currentLocation = source, let destination = destination else {
-                       return
+             guard let currentLocation = source, let destination = destination else { return
                    }
         let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
         let destinationPlaceMark = MKPlacemark(coordinate: destination)
@@ -92,7 +92,6 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     
     @IBAction func zoomBtn(_ sender: UIStepper) {
-        
         if sender.value > zoomInOut {
                  zoomInOut += 1
                  let span = MKCoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta / 2, longitudeDelta: mapView.region.span.longitudeDelta / 2)
@@ -146,6 +145,20 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
 }
 extension FindMyWayController: MKMapViewDelegate {
     
+    //MARK: - add view For annotation method
+          func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+              
+              if annotation is MKUserLocation {
+                  return nil
+              }
+            // add custom annotation with image
+            let pinAnnotation = mapView.dequeueReusableAnnotationView(withIdentifier: "droppablePin") ?? MKPinAnnotationView()
+            pinAnnotation.image = UIImage(named: "pin")
+            pinAnnotation.canShowCallout = true
+            pinAnnotation.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            return pinAnnotation
+          }
+    
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor =   UIColor.purple.withAlphaComponent(0.60)
@@ -154,7 +167,8 @@ extension FindMyWayController: MKMapViewDelegate {
         }
         return renderer
     }
-  
+    
+     
 }
 
 
