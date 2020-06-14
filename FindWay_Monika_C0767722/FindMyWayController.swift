@@ -38,7 +38,9 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         if let userLocation = clLocationManager.location?.coordinate {
         self.source = userLocation
         }
-        
+        mapView.showsUserLocation = true
+        mapView.isZoomEnabled = false
+
         // Double tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
         //setvalue for zoomin
@@ -50,7 +52,16 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     }
     
     @IBAction func locationBtn(_ sender: UIButton) {
+        if(self.destination == nil)
+                   {
+                       let alertController = UIAlertController(title: "Error", message:
+                       "No destination Pointed", preferredStyle: .alert)
+                       alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                       self.present(alertController, animated: true, completion: nil)
+                   }
+        else{
          createRoute()
+        }
     }
     
     //Mark: Route Create
@@ -69,29 +80,19 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
         let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
         directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
-            if(destination == nil)
-            {
-                let alertController = UIAlertController(title: "Error", message:
-                "No destination Pointed", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-                self.present(alertController, animated: true, completion: nil)
-            }
-            else{
-                 directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
-            }
-       
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
        
         //Calculate Direction
         let directions = MKDirections(request: directionRequest)
         directions.calculate {response, error in
         guard let directionResponse = response else{return}
         //Create Route
-        let route = directionResponse.routes[0]
-        //draw polyLine
-        self.mapView.addOverlay(route.polyline)
-        self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+       for route in directionResponse.routes {
+            self.mapView.addOverlay(route.polyline)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
     }
+}
 }
     
     
@@ -188,7 +189,14 @@ extension FindMyWayController: MKMapViewDelegate {
         }
         return rendrer
     }
-    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
+           {
+               //Alert Location Added
+               let alertController = UIAlertController(title: "Success", message: "Location Added", preferredStyle: .alert)
+               let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+               alertController.addAction(cancelAction)
+               present(alertController, animated: true, completion: nil)
+           }
      
 }
 

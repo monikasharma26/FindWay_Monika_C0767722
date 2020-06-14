@@ -32,7 +32,7 @@
                                     <action selector="locationBtn:" destination="fpV-3k-Ayf" eventType="touchUpInside" id="fqv-X4-CFz"/>
                                 </connections>
                             </button>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Fk3-Fo-MWo">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="25" maximumValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="Fk3-Fo-MWo">
                                 <rect key="frame" x="20" y="825" width="94" height="32"/>
                                 <color key="backgroundColor" red="0.10196078431372549" green="0.45098039215686275" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
