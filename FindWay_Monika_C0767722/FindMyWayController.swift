@@ -23,25 +23,29 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
          super.viewDidLoad()
-            zoomValue = zoom.value
-              directionRequest.transportType = .automobile
-              clLocationManager.delegate = self
-              clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-              // Check for Location Services
-              if (CLLocationManager.locationServicesEnabled()) {
-                  clLocationManager.requestAlwaysAuthorization()
-                  clLocationManager.requestWhenInUseAuthorization()
-              }
-              if let userLocation = clLocationManager.location?.coordinate {
-                  self.source = userLocation
-              }
-              // Double tap gesture
-              let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
-              tapGesture.numberOfTapsRequired = 2
-              mapView.addGestureRecognizer(tapGesture)
-              clLocationManager.startUpdatingLocation()
+        setupUI()
     }
     
+    func setupUI(){
+        zoomValue = zoom.value
+        directionRequest.transportType = .automobile
+        clLocationManager.delegate = self
+        clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        // Check for Location Services
+        if (CLLocationManager.locationServicesEnabled()) {
+        clLocationManager.requestAlwaysAuthorization()
+        clLocationManager.requestWhenInUseAuthorization()
+        }
+        if let userLocation = clLocationManager.location?.coordinate {
+        self.source = userLocation
+        }
+        
+        // Double tap gesture
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
+        tapGesture.numberOfTapsRequired = 2
+        mapView.addGestureRecognizer(tapGesture)
+        clLocationManager.startUpdatingLocation()
+    }
     
     @IBAction func locationBtn(_ sender: UIButton) {
          createRoute()
@@ -49,9 +53,26 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     func createRoute() {
         if mapView.overlays.count == 0 {
-            getRoute()
+             guard let currentLocation = source, let destination = destination else {
+                       return
+                   }
+        let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
+        let destinationPlaceMark = MKPlacemark(coordinate: destination)
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        directionRequest.requestsAlternateRoutes = true
+        //Calculate Direction
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate {response, error in
+        guard let directionResponse = response else{return}
+        //Create Route
+        let route = directionResponse.routes[0]
+        //draw polyLine
+        self.mapView.addOverlay(route.polyline)
+        self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
     }
+}
     
     
     @IBAction func trasnportSegment(_ sender: UISegmentedControl) {
@@ -121,42 +142,18 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         mapView.setRegion(region, animated: true)
     }
     
-    //Mark:  Get route
-      func getRoute() {
-          guard let currentLocation = source, let destination = destination else {
-              return
-          }
-        let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
-        let destinationPlaceMark = MKPlacemark(coordinate: destination)
-        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
-        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
-        directionRequest.requestsAlternateRoutes = true
-        //Calculate Direction
-          let directions = MKDirections(request: directionRequest)
-          directions.calculate {response, error in
-              guard let directionResponse = response else {
-                  print(error?.localizedDescription ?? "")
-                  return
-              }
-            //Create Route
-              let route = directionResponse.routes[0]
-            //draw polyLine
-            self.mapView.addOverlay(route.polyline)
-            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
-          }
-      }
 }
 extension FindMyWayController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-        renderer.strokeColor =   UIColor.red.withAlphaComponent(0.60)
+        renderer.strokeColor =   UIColor.purple.withAlphaComponent(0.60)
         if self.directionRequest.transportType == .walking {
             renderer.lineDashPattern = [0,10]
         }
         return renderer
     }
-   
+  
 }
 
 
