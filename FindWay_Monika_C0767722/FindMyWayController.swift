@@ -23,18 +23,18 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
          super.viewDidLoad()
+      
         setupUI()
     }
     
     func setupUI(){
-        directionRequest.transportType = .automobile
+       
         clLocationManager.delegate = self
+         // accuracy of the location
         clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         // Check for Location Services
-        if (CLLocationManager.locationServicesEnabled()) {
-        clLocationManager.requestAlwaysAuthorization()
         clLocationManager.requestWhenInUseAuthorization()
-        }
+       
         if let userLocation = clLocationManager.location?.coordinate {
         self.source = userLocation
         }
@@ -43,6 +43,7 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
         //setvalue for zoomin
         zoomInOut = zoom.value
+        directionRequest.transportType = .automobile
         tapGesture.numberOfTapsRequired = 2
         mapView.addGestureRecognizer(tapGesture)
         clLocationManager.startUpdatingLocation()
@@ -55,12 +56,30 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     //Mark: Route Create
     func createRoute() {
         if mapView.overlays.count == 0 {
-             guard let currentLocation = source, let destination = destination else { return
+             guard let currentLocation = source, let destinationLocation = destination else { return
                    }
+            if(source == nil)
+            {
+            let alertController = UIAlertController(title: "Error", message:
+            "Please enable location services in settings and Try again", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+                return
+            }
         let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
-        let destinationPlaceMark = MKPlacemark(coordinate: destination)
+        let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
         directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
-        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+            if(destination == nil)
+            {
+                let alertController = UIAlertController(title: "Error", message:
+                "No destination Pointed", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+            }
+            else{
+                 directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+            }
+       
        
         //Calculate Direction
         let directions = MKDirections(request: directionRequest)
@@ -161,12 +180,13 @@ extension FindMyWayController: MKMapViewDelegate {
     
         //Mark: render For Overlay
         public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-        renderer.strokeColor =   UIColor.red.withAlphaComponent(0.60)
+        let rendrer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+            rendrer.strokeColor =   UIColor.blue
+        rendrer.lineWidth = 4
         if self.directionRequest.transportType == .walking {
-            renderer.lineDashPattern = [0,10]
+            rendrer.lineDashPattern = [0,10]
         }
-        return renderer
+        return rendrer
     }
     
      
