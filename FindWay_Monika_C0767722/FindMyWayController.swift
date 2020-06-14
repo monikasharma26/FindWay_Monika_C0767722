@@ -15,11 +15,11 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     //Stored Properties
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var zoom: UIStepper!
-    private var zoomValue: Double = 0
+    private var zoomInOut: Double = 0
     private var source: CLLocationCoordinate2D?
     private var destination: CLLocationCoordinate2D?
     private var clLocationManager = CLLocationManager()
-    fileprivate let directionRequest = MKDirections.Request()
+    private let directionRequest = MKDirections.Request()
     
     override func viewDidLoad() {
          super.viewDidLoad()
@@ -27,7 +27,6 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     }
     
     func setupUI(){
-        zoomValue = zoom.value
         directionRequest.transportType = .automobile
         clLocationManager.delegate = self
         clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -42,6 +41,8 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         
         // Double tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
+        //setvalue for zoomin
+        zoomInOut = zoom.value
         tapGesture.numberOfTapsRequired = 2
         mapView.addGestureRecognizer(tapGesture)
         clLocationManager.startUpdatingLocation()
@@ -92,13 +93,13 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     @IBAction func zoomBtn(_ sender: UIStepper) {
         
-        if sender.value > zoomValue {
-                 zoomValue += 1
+        if sender.value > zoomInOut {
+                 zoomInOut += 1
                  let span = MKCoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta / 2, longitudeDelta: mapView.region.span.longitudeDelta / 2)
             let region = MKCoordinateRegion(center: source!, span: span)
                  mapView.setRegion(region, animated: true)
              } else {
-                 zoomValue -= 1
+                 zoomInOut -= 1
                  let span = MKCoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta * 2, longitudeDelta: mapView.region.span.longitudeDelta * 2)
                  let region = MKCoordinateRegion(center: mapView.region.center, span: span)
                  mapView.setRegion(region, animated: true)
