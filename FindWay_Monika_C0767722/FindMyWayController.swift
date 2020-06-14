@@ -15,18 +15,16 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     //Stored Properties
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var zoom: UIStepper!
-    
-    // Varibales
     private var zoomValue: Double = 0
     private var source: CLLocationCoordinate2D?
     private var destination: CLLocationCoordinate2D?
     private var clLocationManager = CLLocationManager()
-    fileprivate let direction = MKDirections.Request()
+    fileprivate let directionRequest = MKDirections.Request()
     
     override func viewDidLoad() {
          super.viewDidLoad()
             zoomValue = zoom.value
-              direction.transportType = .automobile
+              directionRequest.transportType = .automobile
               clLocationManager.delegate = self
               clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
               // Check for Location Services
@@ -38,7 +36,7 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
                   self.source = userLocation
               }
               // Double tap gesture
-              let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapPress))
+              let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
               tapGesture.numberOfTapsRequired = 2
               mapView.addGestureRecognizer(tapGesture)
               clLocationManager.startUpdatingLocation()
@@ -46,10 +44,10 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     
     @IBAction func locationBtn(_ sender: UIButton) {
-         makeRoute()
+         createRoute()
     }
     
-    func makeRoute() {
+    func createRoute() {
         if mapView.overlays.count == 0 {
             getRoute()
         }
@@ -59,13 +57,15 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     @IBAction func trasnportSegment(_ sender: UISegmentedControl) {
         mapView.removeOverlays(mapView.overlays)
                switch sender.selectedSegmentIndex {
-               case 0: // Automobile
-                   direction.transportType = .automobile
-               case 1: // Walking
-                   direction.transportType = .walking
+                //Mark: Case 0 for AutoMobile Transport
+               case 0:
+                   directionRequest.transportType = .automobile
+                  //Mark: Case 1 for AutoMobile Transport
+               case 1:
+                directionRequest.transportType = .walking
                default: break
                }
-               makeRoute()
+               createRoute()
     }
     
     
@@ -74,7 +74,7 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         if sender.value > zoomValue {
                  zoomValue += 1
                  let span = MKCoordinateSpan(latitudeDelta: mapView.region.span.latitudeDelta / 2, longitudeDelta: mapView.region.span.longitudeDelta / 2)
-                 let region = MKCoordinateRegion(center: mapView.region.center, span: span)
+            let region = MKCoordinateRegion(center: source!, span: span)
                  mapView.setRegion(region, animated: true)
              } else {
                  zoomValue -= 1
@@ -84,51 +84,65 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
              }
          }
     
-    // Gesture Recognizer
-     @objc func tapPress(gestureRecognizer: UIGestureRecognizer) {
+    //Mark:  long press gesture recognizer for the annotation
+     @objc func addlongPress(gestureRecognizer: UIGestureRecognizer) {
+        //remove already create annotations and overlays
          mapView.removeAnnotations(mapView.annotations)
          mapView.removeOverlays(mapView.overlays)
          destination = nil
          let touchPoint = gestureRecognizer.location(in: mapView)
          let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        
+        //add annotation
          let annotation = MKPointAnnotation()
-         annotation.title = "Destination"
+         annotation.title = "Destination Location"
          annotation.coordinate = coordinate
          mapView.addAnnotation(annotation)
          self.destination = coordinate
      }
     
-    // Location manager delegate
+    //Mark: didupdatelocation method
        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
            let userLocation: CLLocation = locations[0]
-           let lat = userLocation.coordinate.latitude
-           let long = userLocation.coordinate.longitude
-           let latDelta: CLLocationDegrees = 0.5
-           let longDelta: CLLocationDegrees = 0.5
-           let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
-           let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-           self.source = location
-           let region = MKCoordinateRegion(center: location, span: span)
-           mapView.setRegion(region, animated: true)
+           let latitude = userLocation.coordinate.latitude
+           let longitude = userLocation.coordinate.longitude
+           getLocation(latitude: latitude, longitude: longitude)
        }
     
-    // Get route
+    //Mark: Display User Location
+    func getLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+    {
+        let latDelta: CLLocationDegrees = 0.5
+        let longDelta: CLLocationDegrees = 0.5
+        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+        let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        self.source = location
+        let region = MKCoordinateRegion(center: location, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    //Mark:  Get route
       func getRoute() {
           guard let currentLocation = source, let destination = destination else {
               return
           }
-          direction.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
-          direction.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
-          direction.requestsAlternateRoutes = true
-          let directions = MKDirections(request: direction)
-          directions.calculate { [unowned self] response, error in
-              guard let unwrappedResponse = response else {
+        let sourcePlaceMark = MKPlacemark(coordinate: currentLocation)
+        let destinationPlaceMark = MKPlacemark(coordinate: destination)
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        directionRequest.requestsAlternateRoutes = true
+        //Calculate Direction
+          let directions = MKDirections(request: directionRequest)
+          directions.calculate {response, error in
+              guard let directionResponse = response else {
                   print(error?.localizedDescription ?? "")
                   return
               }
-              let route = unwrappedResponse.routes[0]
-              self.mapView.addOverlay(route.polyline)
-              self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            //Create Route
+              let route = directionResponse.routes[0]
+            //draw polyLine
+            self.mapView.addOverlay(route.polyline)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
           }
       }
 }
@@ -136,12 +150,13 @@ extension FindMyWayController: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-        renderer.strokeColor = UIColor.green.withAlphaComponent(0.65)
-        if self.direction.transportType == .walking {
-            renderer.lineDashPattern = [0, 10]
+        renderer.strokeColor =   UIColor.red.withAlphaComponent(0.60)
+        if self.directionRequest.transportType == .walking {
+            renderer.lineDashPattern = [0,10]
         }
         return renderer
     }
+   
 }
 
 

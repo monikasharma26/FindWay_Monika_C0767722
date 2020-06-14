@@ -60,12 +60,12 @@
 			children = (
 				CE13D4B224904872007D2A5D /* AppDelegate.swift */,
 				CE13D4B424904872007D2A5D /* SceneDelegate.swift */,
+				CE7A22D6249339720038204D /* FindMyWayController.swift */,
 				CE13D4B824904872007D2A5D /* Main.storyboard */,
 				CE13D4BE24904874007D2A5D /* Assets.xcassets */,
 				CE13D4C024904874007D2A5D /* LaunchScreen.storyboard */,
 				CE13D4C324904874007D2A5D /* Info.plist */,
 				CE13D4BB24904872007D2A5D /* FindWay_Monika_C0767722.xcdatamodeld */,
-				CE7A22D6249339720038204D /* FindMyWayController.swift */,
 			);
 			path = FindWay_Monika_C0767722;
 			sourceTree = "<group>";
