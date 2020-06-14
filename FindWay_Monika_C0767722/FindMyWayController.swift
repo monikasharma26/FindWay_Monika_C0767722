@@ -23,7 +23,6 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
          super.viewDidLoad()
-      
         setupUI()
     }
     
@@ -34,13 +33,10 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         // Check for Location Services
         clLocationManager.requestWhenInUseAuthorization()
-       
+        clLocationManager.startUpdatingLocation()
         if let userLocation = clLocationManager.location?.coordinate {
         self.source = userLocation
         }
-        mapView.showsUserLocation = true
-        mapView.isZoomEnabled = false
-
         // Double tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addlongPress))
         //setvalue for zoomin
@@ -48,7 +44,7 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         directionRequest.transportType = .automobile
         tapGesture.numberOfTapsRequired = 2
         mapView.addGestureRecognizer(tapGesture)
-        clLocationManager.startUpdatingLocation()
+       
     }
     
     @IBAction func locationBtn(_ sender: UIButton) {
