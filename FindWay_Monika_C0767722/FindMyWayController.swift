@@ -61,7 +61,7 @@ class FindMyWayController: UIViewController, CLLocationManagerDelegate{
         let destinationPlaceMark = MKPlacemark(coordinate: destination)
         directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
         directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
-        directionRequest.requestsAlternateRoutes = true
+       
         //Calculate Direction
         let directions = MKDirections(request: directionRequest)
         directions.calculate {response, error in
@@ -159,9 +159,10 @@ extension FindMyWayController: MKMapViewDelegate {
             return pinAnnotation
           }
     
-    public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        //Mark: render For Overlay
+        public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-        renderer.strokeColor =   UIColor.purple.withAlphaComponent(0.60)
+        renderer.strokeColor =   UIColor.red.withAlphaComponent(0.60)
         if self.directionRequest.transportType == .walking {
             renderer.lineDashPattern = [0,10]
         }
